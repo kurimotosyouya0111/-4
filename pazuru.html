@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pazuru.css">
+    <title>スライディングパズル</title>
+    <style>
+        /* 背景画像の設定 */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('7.gif');
+            background-size: cover;
+            /* 画面全体にフィットするように背景を拡大 */
+            background-position: center;
+            /* 背景画像を中央に配置 */
+            background-repeat: no-repeat;
+            /* 背景が繰り返さないように設定 */
+        }
+
+
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .question p {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .options {
+            margin-bottom: 20px;
+        }
+
+        .options input {
+            margin-right: 10px;
+        }
+
+        .options label {
+            font-size: 16px;
+            margin-right: 20px;
+        }
+
+        /* タイマーと動きのカウント */
+        #timer,
+        #move-count {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* ランキングの表示 */
+        #ranking-container {
+            position: absolute;
+            top: 20px;
+            /* 上から20px */
+            right: 20px;
+            /* 右から20px */
+            color: black;
+            /* テキストの色を黒に変更 */
+            padding: 10px;
+            border-radius: 8px;
+            width: auto;
+            /* 幅を自動調整 */
+            box-sizing: border-box;
+            font-size: 30px;
+        }
+
+
+
+
+        #ranking-container h2 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        #ranking-container div {
+            margin-bottom: 10px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="header">
+        <div id="ranking-container"></div>
+
+
+        <button id="theme-toggle"></button>
+    </div>
+
+    <label for="level">レベル選択:</label>
+    <select id="level">
+        <option value="3">3x3</option>
+        <option value="4">4x4</option>
+        <option value="5">5x5</option>
+    </select>
+
+    <div class="puzzle-container" id="puzzle-container"></div>
+    <div class="controls">
+        <button id="shuffle-btn">シャッフル</button>
+        <button id="solve-btn">解決</button>
+        <button id="reset-btn">リセット</button>
+    </div>
+    <div id="timer">タイマー: <span id="time">0</span>秒</div>
+    <div id="move-count">動き: <span id="moves">0</span></div>
+    <audio id="move-sound" src="move-sound.mp3" preload="auto"></audio>
+
+    <div class="quiz-container" id="quiz-container">
+        <h2>クイズ</h2>
+        <div id="quiz-questions"></div>
+    </div>
+
+    <script src="pazuru.js"></script>
+    <script>
+
+
+
+
+
+        // ページが読み込まれたらクイズを表示
+        window.onload = function () {
+            displayQuiz(); // クイズを表示
+        };
+
+        // クイズの質問を表示する関数
+        function displayQuiz() {
+            const quizContainer = document.getElementById('quiz-questions');
+            quizQuestions.forEach(q => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+
+                questionDiv.innerHTML = `<p>${q.question}</p>`;
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'options';
+                q.options.forEach(option => {
+                    const optionInput = document.createElement('input');
+                    optionInput.type = 'radio';
+                    optionInput.name = q.question;
+                    optionInput.value = option;
+                    optionsDiv.appendChild(optionInput);
+                    optionsDiv.innerHTML += `<label>${option}</label><br>`;
+                });
+                questionDiv.appendChild(optionsDiv);
+
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+
+    </script>
+</body>
+
+</html>
