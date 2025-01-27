@@ -114,11 +114,7 @@ function displayRanking() {
 }
 
 
-var map = L.map('map', {
-    dragging: true, // ← これを追加
-    touchZoom: true, // ← タッチ操作を有効化
-    scrollWheelZoom: false
-}).setView([35.6895, 139.6917], 5);
+
 
 
 initTiles();
