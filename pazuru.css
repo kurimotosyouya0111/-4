@@ -130,9 +130,6 @@ body {
     margin: 0;
 }
 
-html, body {
-    touch-action: none;
-}
 
 
 @keyframes fadeIn {
