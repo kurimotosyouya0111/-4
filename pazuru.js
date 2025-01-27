@@ -113,9 +113,7 @@ function displayRanking() {
     });
 }
 
-document.addEventListener("touchstart", function(event) {
-    event.preventDefault();
-}, { passive: false });
+
 
 
 initTiles();
