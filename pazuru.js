@@ -113,6 +113,36 @@ function displayRanking() {
     });
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    const pieces = document.querySelectorAll(".puzzle-piece");
+    let selectedPiece = null;
+    let startX, startY;
+
+    pieces.forEach(piece => {
+        piece.addEventListener("touchstart", onTouchStart, false);
+        piece.addEventListener("touchmove", onTouchMove, false);
+        piece.addEventListener("touchend", onTouchEnd, false);
+    });
+
+    function onTouchStart(event) {
+        selectedPiece = event.target;
+        startX = event.touches[0].clientX;
+        startY = event.touches[0].clientY;
+    }
+
+    function onTouchMove(event) {
+        if (!selectedPiece) return;
+
+        let dx = event.touches[0].clientX - startX;
+        let dy = event.touches[0].clientY - startY;
+
+        selectedPiece.style.transform = `translate(${dx}px, ${dy}px)`;
+    }
+
+    function onTouchEnd() {
+        selectedPiece = null;
+    }
+});
 
 
 
